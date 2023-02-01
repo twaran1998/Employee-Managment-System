@@ -1,0 +1,69 @@
+enum TitleType {
+    Employee
+    Manager
+    Director
+    VP
+}
+
+enum DepartmentType {
+    IT
+    Marketing
+    HR
+    Engineering
+}
+
+enum EmployeeType {
+    FullTime
+    PartTime
+    Contract
+    Seasonal
+}
+
+input EmployeeInputs {
+    FirstName: String
+    LastName: String
+    Age: Int
+    DateOfJoining: Date
+    Title: TitleType
+    Department: DepartmentType
+    EmployeeType: EmployeeType
+    CurrentStatus: Boolean
+}
+
+
+input UserUpdatePayload {
+    id: String!
+    title: TitleType!
+    department: DepartmentType!
+    currentstatus: Boolean!
+}
+
+type DeleteResponse {
+    acknowledged: Boolean!
+    deletedCount: Int!
+}
+
+scalar Date
+
+type Employee {
+    id: String!
+    FirstName: String
+    LastName: String
+    Age: Int
+    DateOfJoining: Date
+    Title: TitleType
+    Department: DepartmentType
+    EmployeeType: EmployeeType
+    CurrentStatus: Boolean
+}
+
+type Query {
+    employeeList(filtercriteria: String): [Employee!]!
+}
+
+type Mutation {
+    employeeAdd(employee: EmployeeInputs): Employee!
+    updateUserBasedOnID(newuser: UserUpdatePayload): Employee!
+    singleUser(_id: String!): Employee
+    deleteUserBasedOnId(_id: String!): Employee!
+}
